@@ -20,8 +20,9 @@ public class WebhookController {
     }
 
     @GetMapping("/webhooks")
-    public ResponseEntity<Integer> verify(@RequestHeader("hub.mode") String mode, @RequestHeader("hub.challenge") int challenge,
-                                 @RequestHeader("hub.verify_token") String verifyToken) {
+    public ResponseEntity<Integer> verify(@RequestParam("hub.mode") String mode,
+                                          @RequestParam("hub.challenge") int challenge,
+                                          @RequestParam("hub.verify_token") String verifyToken) {
         if (SUBSCRIBE_MODE.equals(mode) && TOKEN.equals(verifyToken)) {
             return new ResponseEntity<>(challenge, HttpStatus.OK);
         }
